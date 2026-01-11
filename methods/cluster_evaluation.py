@@ -10,10 +10,10 @@ def evaluate_clusters(path, max_k=10):
     """
     Mathematically evaluates optimal k using Cost (Elbow) and Silhouette Score.
     """
-    # 1. Load Data
+    #Load Data
     df = preprocess_data(path)
     
-    # 2. PREPARE DATA FOR SILHOUETTE SCORE
+    # PREPARE DATA FOR SILHOUETTE SCORE
     le = LabelEncoder()
     df_encoded = df.apply(lambda col: le.fit_transform(col))
     
@@ -36,15 +36,13 @@ def evaluate_clusters(path, max_k=10):
         
         print(f"k={k}: Cost={km.cost_:.0f}, Silhouette={score:.4f}")
 
-    # --- PLOTTING WITH THEME ---
+    
     fig, ax1 = plt.subplots(figsize=(10, 6))
 
-    # PRIMARY AXIS (COST - BLUE)
     color = 'tab:blue'
     ax1.set_xlabel('Number of Clusters (k)', fontsize=12)
     ax1.set_ylabel('Cost (Dissimilarity)', color=color, fontsize=12)
     
-    # Thicker line, larger marker
     ln1 = ax1.plot(K_range, costs, color=color, marker='o', linewidth=3, 
                    markersize=8, label='Cost (Elbow)')
     
@@ -111,32 +109,31 @@ def evaluate_stability(path, k=4, n_runs=20):
     mean_cost = np.mean(costs)
     std_cost = np.std(costs)
 
-    # --- PLOTTING WITH THEME ---
     fig, ax = plt.subplots(figsize=(10, 6))
     
-    # 1. Main Data Line (Using 'tab:blue' to match your Cost/Elbow plot)
+    # Main Data Line (Using 'tab:blue' to match your Cost/Elbow plot)
     ax.plot(costs, marker='o', linestyle='-', linewidth=2, markersize=6, 
             color='tab:purple', label='Run Cost')
     
-    # 2. Add Mean Line (To show the "Center" of stability)
+    # Mean Line (To show the "Center" of stability)
     ax.axhline(y=mean_cost, color='tab:red', linestyle='--', alpha=0.7, 
                label=f'Mean Cost ({mean_cost:.0f})')
     
-    # 3. Clean up the "Box" (Remove top and right spines)
+    # Clean up the "Box" (Remove top and right spines)
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
     
-    # 4. Add Grid for readability
+    # Grid for readability
     ax.grid(axis='y', linestyle='--', alpha=0.5)
     ax.set_ylim(53000, 58000)
     
-    # 5. Titles and Labels
+    # Titles and Labels
     ax.set_title(f'Model Stability Check (k={k}, n_init=50)', 
                  fontsize=14, fontweight='bold', pad=15)
     ax.set_xlabel('Run Number (Random Seed)', fontsize=11)
     ax.set_ylabel('Cost (Dissimilarity)', fontsize=11, color='tab:blue')
     
-    # Add a legend
+    # legend
     ax.legend(loc='upper right')
     
     plt.tight_layout()
