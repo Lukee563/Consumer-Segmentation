@@ -39,16 +39,16 @@ To assess robustness, the K-Modes algorithm was run 20 independent times using d
 ## Results (Segment Profiles) 
 The final model identified four distinct customer segments, each exhibiting consistent and interpretable behavioral patterns:
 
-	•	Premium Customers
+• Premium Customers
 Price-insensitive, high-spending consumers with strong engagement across product categories. This segment represents the highest revenue potential and is well-suited for premium offerings, subscriptions, and high-margin upsells.
 
-	•	Core Regulars
+• Core Regulars
 Moderate-to-high spenders with stable purchasing behavior. These customers form the revenue backbone of the business and benefit most from retention-focused strategies such as loyalty programs and consistency-based rewards.
 
-	•	Budget-Conscious Consumers
+• Budget-Conscious Consumers
 Highly price-sensitive customers concentrated in lower spending brackets. Engagement can be increased through targeted promotions, value bundles, and limited-time discounts designed to raise basket size without eroding margins elsewhere.
 
-	•	Minimalists
+• Minimalists
 Low-frequency, low-spend customers with limited engagement. This segment exhibits the highest churn risk, and marketing investment here yields the lowest marginal returns.
 
 # Key Takeaway
