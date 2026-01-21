@@ -31,29 +31,37 @@ This project demonstrates how unsupervised learning can uncover latent structure
 ## Optimal Cluster Selection
 
 To determine the proper cluster count, the within-cluster dissimilarity (cost function) and Silhouette Score were both analyzed to balance statistical fit and interpretability. While lower cluster counts produced marginally higher Silhouette Scores, they failed to capture meaningful behavioral heterogeneity (near-identical clusters). A four-cluster solution represented the point at which additional clusters yielded diminishing reductions in cost while preserving interpretable segment structure.
+<img width="729" height="437" alt="Screenshot 2026-01-21 at 10 43 17 AM" src="https://github.com/user-attachments/assets/459a0c2c-9051-45e0-a4ea-b6361d92f995" />
+
 
 ## Cluster Stability
 
 To assess robustness, the K-Modes algorithm was run 20 independent times using different random seeds and Huang initialization (Convergance Speed Optimization). Across all runs, the model converged to nearly identical solutions with minimal variation in total cost, indicating that the identified segments are structurally stable rather than by-products of random initialization.
+<img width="630" height="364" alt="Screenshot 2026-01-21 at 10 42 52 AM" src="https://github.com/user-attachments/assets/796d4e15-1447-4333-8a56-6fa3b8b23cd7" />
+
 
 ## Results (Segment Profiles) 
 The final model identified four distinct customer segments, each exhibiting consistent and interpretable behavioral patterns:
 
-• Premium Customers
+• Premium Customers (Cluster 0)
 
 Price-insensitive, high-spending consumers with strong engagement across product categories. This segment represents the highest revenue potential and is well-suited for premium offerings, subscriptions, and high-margin upsells.
 
-• Core Regulars
+• Core Regulars (Cluster 1)
 
 Moderate-to-high spenders with stable purchasing behavior. These customers form the revenue backbone of the business and benefit most from retention-focused strategies such as loyalty programs and consistency-based rewards.
 
-• Budget-Conscious Consumers
+• Budget-Conscious Consumers (Cluster 3)
 
 Highly price-sensitive customers concentrated in lower spending brackets. Engagement can be increased through targeted promotions, value bundles, and limited-time discounts designed to raise basket size without eroding margins elsewhere.
 
-• Minimalists
+• Minimalists (Cluster 2) 
 
 Low-frequency, low-spend customers with limited engagement. This segment exhibits the highest churn risk, and marketing investment here yields the lowest marginal returns.
+
+<img width="881" height="808" alt="Screenshot 2026-01-21 at 10 44 03 AM" src="https://github.com/user-attachments/assets/ebe26c5e-f876-4358-ba28-054b5ae51ccb" />
+
+Note: spending bounds are averaged and normalized for analysis
 
 # Key Takeaway
 
