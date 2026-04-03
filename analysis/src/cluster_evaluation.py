@@ -4,7 +4,7 @@ import pandas as pd
 from kmodes.kmodes import KModes
 from sklearn.metrics import silhouette_score
 from sklearn.preprocessing import LabelEncoder
-from methods.data_clean import preprocess_data
+from data_clean import preprocess_data
 
 def evaluate_clusters(path, max_k=10):
     """
@@ -88,7 +88,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from kmodes.kmodes import KModes
-from methods.data_clean import preprocess_data
+from src.data_clean import preprocess_data
 
 def evaluate_stability(path, k=4, n_runs=20):
     """

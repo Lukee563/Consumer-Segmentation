@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 from sklearn.preprocessing import MinMaxScaler
 import pandas as pd
 import numpy as np
-from methods.data_clean import preprocess_data
+from src.data_clean import preprocess_data
 from kmodes.kmodes import KModes
 
 def cluster_data(path, n_clusters):
