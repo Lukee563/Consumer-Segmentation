@@ -5,7 +5,7 @@
 
 ## Overview
 
-This project develops a consumer segmentation pipeline using **K-Modes clustering** to analyze mixed categorical survey data collected from a coffee retailer's customer base. The objective is to identify distinct customer segments based on purchasing preferences, price sensitivity, and loyalty behaviors — and translate those segments into actionable pricing and retention strategies aimed at improving customer lifetime value (CLV).
+This project develops a consumer segmentation pipeline using **K-Modes clustering** to analyze mixed categorical survey data collected from a coffee retailer's customer base. The objective is to identify distinct customer segments based on purchasing preferences, price sensitivity, and loyalty behaviors, and translate those segments into actionable pricing and retention strategies aimed at improving customer lifetime value (CLV).
 
 Traditional clustering methods like K-Means are not suited for categorical data due to Euclidean distance assumptions that break down on non-numerical survey responses. K-Modes replaces Euclidean distance with a **Hamming dissimilarity measure**, enabling meaningful segmentation of survey-based attributes without requiring encoding assumptions.
 
@@ -19,7 +19,7 @@ Retailers commonly collect rich survey data through mobile or web-based platform
 - Under-serving high-value loyalists
 - Inefficient allocation of marketing spend
 
-In economic terms, this project operationalizes **third-degree price discrimination** — grouping consumers by quantifiable behavioral characteristics so that pricing and offerings can be differentiated across segments to more efficiently capture surplus.
+In economic terms, this project operationalizes **third-degree price discrimination**, grouping consumers by quantifiable behavioral characteristics so that pricing and offerings can be differentiated across segments to more efficiently capture surplus.
 
 ---
 
@@ -32,7 +32,7 @@ Four distinct consumer profiles were identified:
 | **Premium Customers** | Price-insensitive, high-spending, broad product engagement | Premium offerings, subscriptions, high-margin upsells |
 | **Core Regulars** | Moderate-to-high spend, stable purchase behavior | Loyalty programs, consistency-based rewards |
 | **Budget-Conscious** | Highly price-sensitive, lower spending brackets | Value bundles, targeted promotions, limited-time discounts |
-| **Minimalists** | Low-frequency, low-spend, limited engagement | Lowest marketing ROI — highest churn risk |
+| **Minimalists** | Low-frequency, low-spend, limited engagement | Lowest marketing ROI,  highest churn risk |
 
 Spending bounds are averaged and normalized across clusters for comparability.
 
@@ -89,10 +89,10 @@ jupyter notebook 02_evaluation.ipynb # k optimization and stability
 
 ## Key Takeaway
 
-The results demonstrate that unsupervised learning can reliably uncover latent preference and spending structure in categorical survey data. The four identified segments are reproducible, interpretable, and directly actionable — supporting differentiated pricing, retention, and marketing strategies aligned with heterogeneous consumer behavior.
+The results demonstrate that unsupervised learning can reliably uncover latent preference and spending structure in categorical survey data. The four identified segments are reproducible, interpretable, and directly actionable, supporting differentiated pricing, retention, and marketing strategies aligned with heterogeneous consumer behavior.
 
 ---
 
 ## Tech Stack
 
-Python — `kmodes`, `scikit-learn`, `pandas`, `numpy`, `matplotlib`, `seaborn`
+Python - `kmodes`, `scikit-learn`, `pandas`, `numpy`, `matplotlib`, `seaborn`
