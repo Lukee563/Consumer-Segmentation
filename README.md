@@ -1,68 +1,98 @@
-# Consumer Segmentation (Quantitative Market Analysis) 
-## K-Modes Clustering for Coffee Customer Survey Data
-Author: Luke Catalano
+# Coffee Consumer Segmentation
+**Unsupervised Learning | K-Modes Clustering | Python**
 
-Affiliation: University of California, Santa Cruz, M.S. Quantitative Economics & Finance
+---
 
-# Overview 
-This project develops an unsupervised consumer segmentation pipeline using K-Modes clustering to analyze mixed categorical survey data for a coffee retailer. The primary objective is to identify distinct customer segments based on purchasing preferences, price sensitivity, and loyalty behaviors, and to translate these segments into actionable pricing and retention strategies aimed at improving customer lifetime value (CLV).
+## Overview
 
-Traditional clustering methods such as K-Means are not well-suited for categorical data due to data type mismatches and the non-numerical natrue of the majority of responses. This project instead applies K-Modes, which replaces Euclidean distance with a mode-based dissimilarity measure (hamming distance), allowing for meaningful segmentation of survey-based customer attributes.
+This project develops a consumer segmentation pipeline using **K-Modes clustering** to analyze mixed categorical survey data collected from a coffee retailer's customer base. The objective is to identify distinct customer segments based on purchasing preferences, price sensitivity, and loyalty behaviors — and translate those segments into actionable pricing and retention strategies aimed at improving customer lifetime value (CLV).
+
+Traditional clustering methods like K-Means are not suited for categorical data due to Euclidean distance assumptions that break down on non-numerical survey responses. K-Modes replaces Euclidean distance with a **Hamming dissimilarity measure**, enabling meaningful segmentation of survey-based attributes without requiring encoding assumptions.
+
+---
 
 ## Economic Motivation
-Retailers often collect rich survey data through mobile app or web-based surveys, but struggle to convert qualitative responses into quantitative insights. Without segmentation, pricing and marketing strategies are typically applied uniformly, leading to:
-	•	Over-discounting low-sensitivity customers
-	•	Under-serving high-value loyalists
-	•	Inefficient allocation of marketing spend
 
-This project demonstrates how unsupervised learning can uncover latent structure in customer preferences and spending behavior, enabling segment-specific decision-making. In economic terms, such segmentation supports third-degree price discrimination, where consumers are grouped by quantifiable characteristics and firms tailor prices or offerings across segments to more efficiently capture surplus.
+Retailers commonly collect rich survey data through mobile or web-based platforms but struggle to convert qualitative responses into quantitative strategy. Without segmentation, pricing and marketing are applied uniformly, leading to:
 
-## Tools & Models
-  • Python
-  
-  • K-Modes clustering
-  
-  • Pandas, NumPy
-  
-  • Seaborn 
+- Over-discounting low-sensitivity customers
+- Under-serving high-value loyalists
+- Inefficient allocation of marketing spend
 
-# Methodologies
+In economic terms, this project operationalizes **third-degree price discrimination** — grouping consumers by quantifiable behavioral characteristics so that pricing and offerings can be differentiated across segments to more efficiently capture surplus.
 
-## Optimal Cluster Selection
+---
 
-To determine the proper cluster count, the within-cluster dissimilarity (cost function) and Silhouette Score were both analyzed to balance statistical fit and interpretability. While lower cluster counts produced marginally higher Silhouette Scores, they failed to capture meaningful behavioral heterogeneity (near-identical clusters). A four-cluster solution represented the point at which additional clusters yielded diminishing reductions in cost while preserving interpretable segment structure.
-<img width="729" height="437" alt="Screenshot 2026-01-21 at 10 43 17 AM" src="https://github.com/user-attachments/assets/459a0c2c-9051-45e0-a4ea-b6361d92f995" />
+## Cluster Results
 
+Four distinct consumer profiles were identified:
 
-## Cluster Stability
+| Segment | Profile | Strategy |
+|---|---|---|
+| **Premium Customers** (Cluster 0) | Price-insensitive, high-spending, broad product engagement | Premium offerings, subscriptions, high-margin upsells |
+| **Core Regulars** (Cluster 1) | Moderate-to-high spend, stable purchase behavior | Loyalty programs, consistency-based rewards |
+| **Budget-Conscious** (Cluster 3) | Highly price-sensitive, lower spending brackets | Value bundles, targeted promotions, limited-time discounts |
+| **Minimalists** (Cluster 2) | Low-frequency, low-spend, limited engagement | Lowest marketing ROI — highest churn risk |
 
-To assess robustness, the K-Modes algorithm was run 20 independent times using different random seeds and Huang initialization (Convergance Speed Optimization). Across all runs, the model converged to nearly identical solutions with minimal variation in total cost, indicating that the identified segments are structurally stable rather than by-products of random initialization.
-<img width="630" height="364" alt="Screenshot 2026-01-21 at 10 42 52 AM" src="https://github.com/user-attachments/assets/796d4e15-1447-4333-8a56-6fa3b8b23cd7" />
+Spending bounds are averaged and normalized across clusters for comparability.
 
+---
 
-## Results (Segment Profiles) 
-The final model identified four distinct customer segments, each exhibiting consistent and interpretable behavioral patterns:
+## Methodology
 
-• Premium Customers (Cluster 0)
+**Algorithm:** K-Modes with Huang initialization (`n_init=50` for convergence stability), Hamming distance metric
 
-Price-insensitive, high-spending consumers with strong engagement across product categories. This segment represents the highest revenue potential and is well-suited for premium offerings, subscriptions, and high-margin upsells.
+**Optimal k selection:** Elbow method (within-cluster dissimilarity cost) and Silhouette Score evaluated jointly across k = 2–10. A four-cluster solution was selected as the point of diminishing cost reduction while preserving interpretable segment structure.
 
-• Core Regulars (Cluster 1)
+**Stability validation:** Algorithm run 20 independent times across different random seeds. Costs converged to near-identical solutions across all runs, confirming the segments are structurally stable rather than artifacts of initialization.
 
-Moderate-to-high spenders with stable purchasing behavior. These customers form the revenue backbone of the business and benefit most from retention-focused strategies such as loyalty programs and consistency-based rewards.
+**Preprocessing:** Columns with >15% missing values dropped; remaining rows with any missing values removed; `submission_id` and unnamed index columns excluded. Cleaned data written to `data/cleaned/`.
 
-• Budget-Conscious Consumers (Cluster 3)
+**Spend parsing:** Raw spend range strings (e.g., `"$20-$40"`) parsed into `min_total_spend` / `max_total_spend` numeric bounds for cluster profiling and visualization.
 
-Highly price-sensitive customers concentrated in lower spending brackets. Engagement can be increased through targeted promotions, value bundles, and limited-time discounts designed to raise basket size without eroding margins elsewhere.
+---
 
-• Minimalists (Cluster 2) 
+## Repository Structure
 
-Low-frequency, low-spend customers with limited engagement. This segment exhibits the highest churn risk, and marketing investment here yields the lowest marginal returns.
+```
+├── analysis/
+│   ├── src/
+│   │   ├── data_clean.py          # Preprocessing pipeline (missing value filter, export)
+│   │   ├── cluster_algo.py        # K-Modes clustering (Huang init, n_init=50)
+│   │   └── cluster_evaluation.py  # Elbow + Silhouette optimization; stability analysis
+│   └── scripts/
+│       ├── 01_eda.ipynb           # Cluster profiling, spend parsing, EDA visualizations
+│       └── 02_evaluation.ipynb    # Optimal k selection and stability validation
+├── data/
+│   ├── raw/
+│   │   └── coffee_survey.csv      # Raw survey data
+│   └── cleaned/
+│       └── data_clean.csv         # Preprocessed output (auto-generated)
+├── output/
+│   ├── cluster_results.png        # Normalized spend by segment (bar chart)
+│   ├── Customer_Age_Distribution.png
+│   └── Favorite_Drink_Distribution.png
+├── literature/
+│   └── Project_Slides.pdf         # Presentation deck
+└── README.md
+```
 
-<img width="881" height="808" alt="Screenshot 2026-01-21 at 10 44 03 AM" src="https://github.com/user-attachments/assets/ebe26c5e-f876-4358-ba28-054b5ae51ccb" />
+**To run:**
+```bash
+pip install pandas numpy matplotlib seaborn kmodes scikit-learn
+# From analysis/scripts/:
+jupyter notebook 01_eda.ipynb       # Cluster profiling and EDA
+jupyter notebook 02_evaluation.ipynb # k optimization and stability
+```
 
-Note: spending bounds are averaged and normalized for analysis
+---
 
-# Key Takeaway
+## Key Takeaway
 
-The results demonstrate that unsupervised learning can reliably uncover latent preference and spending structure in categorical survey data. The identified segments are reproducible, interpretable, and directly actionable, supporting differentiated pricing, retention, and marketing strategies aligned with heterogeneous consumer behavior.
+The results demonstrate that unsupervised learning can reliably uncover latent preference and spending structure in categorical survey data. The four identified segments are reproducible, interpretable, and directly actionable — supporting differentiated pricing, retention, and marketing strategies aligned with heterogeneous consumer behavior.
+
+---
+
+## Tech Stack
+
+Python — `kmodes`, `scikit-learn`, `pandas`, `numpy`, `matplotlib`, `seaborn`
