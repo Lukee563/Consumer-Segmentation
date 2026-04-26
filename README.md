@@ -29,10 +29,10 @@ Four distinct consumer profiles were identified:
 
 | Segment | Profile | Strategy |
 |---|---|---|
-| **Premium Customers** (Cluster 0) | Price-insensitive, high-spending, broad product engagement | Premium offerings, subscriptions, high-margin upsells |
-| **Core Regulars** (Cluster 1) | Moderate-to-high spend, stable purchase behavior | Loyalty programs, consistency-based rewards |
-| **Budget-Conscious** (Cluster 3) | Highly price-sensitive, lower spending brackets | Value bundles, targeted promotions, limited-time discounts |
-| **Minimalists** (Cluster 2) | Low-frequency, low-spend, limited engagement | Lowest marketing ROI — highest churn risk |
+| **Premium Customers** | Price-insensitive, high-spending, broad product engagement | Premium offerings, subscriptions, high-margin upsells |
+| **Core Regulars** | Moderate-to-high spend, stable purchase behavior | Loyalty programs, consistency-based rewards |
+| **Budget-Conscious** | Highly price-sensitive, lower spending brackets | Value bundles, targeted promotions, limited-time discounts |
+| **Minimalists** | Low-frequency, low-spend, limited engagement | Lowest marketing ROI — highest churn risk |
 
 Spending bounds are averaged and normalized across clusters for comparability.
 
