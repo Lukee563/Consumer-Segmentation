@@ -4,13 +4,22 @@ import pandas as pd
 from kmodes.kmodes import KModes
 from sklearn.metrics import silhouette_score
 from sklearn.preprocessing import LabelEncoder
-from data_clean import preprocess_data
+from .data_clean import preprocess_data
 
 def evaluate_clusters(path, max_k=10):
     """
     Mathematically evaluates optimal k using Cost (Elbow) and Silhouette Score.
     """
     #Load Data
+    import os
+
+    # Get the directory where the notebook is located
+    base_dir = os.path.dirname(os.path.abspath("__file__"))
+
+    # Construct the path relative to this notebook
+    # (Up two levels to root, then into data)
+    path = os.path.join(base_dir, "..", "..", "data","raw", "coffee_survey.csv")
+
     df = preprocess_data(path)
     
     # PREPARE DATA FOR SILHOUETTE SCORE
@@ -83,12 +92,6 @@ def evaluate_clusters(path, max_k=10):
 # Usage
 # evaluate_clusters("data/coffee_survey.csv", max_k=10)
 
-
-import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
-from kmodes.kmodes import KModes
-from src.data_clean import preprocess_data
 
 def evaluate_stability(path, k=4, n_runs=20):
     """
